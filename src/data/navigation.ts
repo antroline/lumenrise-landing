@@ -30,14 +30,13 @@ export const FOOTER_COLUMNS = [
       ['CLI', 'https://platform.lumenrise.app/cli'],
       ['SDK', 'https://platform.lumenrise.app/developers'],
       ['API', 'https://platform.lumenrise.app/developers'],
-      ['GitHub', null],
+      ['GitHub', 'https://github.com/lumenRise'],
     ],
   },
   {
     title: 'Community',
     links: [
-      ['X', null],
-      ['Discord', null],
+      ['X', 'https://x.com/lumenRiseApp'],
     ],
   },
 ] as const
