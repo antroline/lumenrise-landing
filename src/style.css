@@ -399,12 +399,12 @@
   .hero-launch-grid .lcard-value {
     font-size: 1.375rem;
   }
-  /* Every card here is live, so the narrow columns give the name the room. */
   .hero-launch-grid .lcard-top {
     grid-template-columns: auto minmax(0, 1fr);
   }
   .hero-launch-grid .lcard-status {
-    display: none;
+    grid-column: 2;
+    justify-self: start;
   }
 }
 
@@ -935,6 +935,75 @@
   white-space: nowrap;
 }
 
+.lcard-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--chip);
+}
+
+.lcard-skeleton,
+.launches-message {
+  min-height: 19rem;
+  animation: none;
+}
+
+.lcard-skeleton:hover,
+.launches-message:hover {
+  transform: none;
+}
+
+.lcard-placeholder {
+  display: block;
+  height: 0.875rem;
+  width: 65%;
+  border-radius: 4px;
+  background: var(--chip);
+}
+
+.lcard-placeholder-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+
+.lcard-placeholder-copy {
+  width: 100%;
+  height: 2.5rem;
+}
+
+.lcard-placeholder-figure {
+  width: 75%;
+  height: 3.5rem;
+}
+
+.launches-message {
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--muted-foreground);
+}
+
+.launches-retry {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: 9px;
+  background: var(--chip);
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.launches-retry:hover {
+  background: var(--chip-strong);
+}
+
+.launches-retry:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
 .lcard-socials {
   display: flex;
   gap: 0.5rem;
@@ -988,6 +1057,7 @@
   display: -webkit-box;
   min-height: 2.9em;
   overflow: hidden;
+  overflow-wrap: anywhere;
   font-size: 0.875rem;
   line-height: 1.45;
   color: var(--muted-foreground);
@@ -1015,6 +1085,7 @@
   line-height: 1.05;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
 }
 
 .lcard-bar {

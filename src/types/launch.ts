@@ -23,3 +23,20 @@ export type LaunchProfile = {
   founder: string
   socials: Social[]
 }
+
+/** Public, indexed project data used by the landing page. */
+export type FeaturedLaunch = {
+  id: string
+  href: string
+  name: string
+  symbol: string
+  description: string
+  logo?: string
+  owner: string
+  socials: Social[]
+  status: LaunchStatus | 'failed'
+  statusLabel: string
+  metric: [string, string]
+  detail: [string, string]
+  progress?: number
+}
