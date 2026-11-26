@@ -13,8 +13,13 @@ import { Scene } from './Scene.tsx'
 /** A tool's code for the wallet in focus, and what it returns. */
 export function DevToolScene({ tool }: { tool: DevTool }) {
   const { wallets, active, evaluations, required } = usePolicy()
-  const address = shortAddress(wallets[active].address)
-  const outcome = devResult(tool.id, evaluations[active], address, required.size)
+  const stellar = tool.id === 'soroban' && wallets[active].network === 'Base'
+    ? wallets.findIndex((wallet) => wallet.network === 'Stellar')
+    : -1
+  const index = stellar >= 0 ? stellar : active
+  const { address: wallet, network } = wallets[index]
+  const address = shortAddress(wallet)
+  const outcome = devResult(tool.id, evaluations[index], address, required.size, network)
   return (
     <Scene tone={tool.tone} className="feature-scene dev-scene">
       <Float order={0} className="code-card">
@@ -22,7 +27,7 @@ export function DevToolScene({ tool }: { tool: DevTool }) {
           <span className="font-mono-code">{tool.file}</span>
         </div>
         <pre className="code">
-          <CodeLines lines={devCodeLines(tool.id, required, address)} />
+          <CodeLines lines={devCodeLines(tool.id, required, address, network)} />
         </pre>
       </Float>
       <Float order={1} className="notice notice-result" aria-live="polite">

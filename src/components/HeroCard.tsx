@@ -18,12 +18,12 @@ export function HeroCard() {
       <div className="hero-copy">
         <HeroNetworks />
         <h1 id="hero-title" className="hero-title">
-          <span className="block text-balance">Launch tokens on Stellar and&nbsp;Base.</span>
+          <span className="block text-balance">Launch tokens onchain.</span>
           <span className="block text-balance hero-title-muted">Let reputation decide who&nbsp;takes&nbsp;part.</span>
         </h1>
         <p className="hero-lede">
-          Bonding curves, auctions, and presales with programmable eligibility, built from on-chain activity, ecosystem
-          participation, and developer contributions.
+          Publish your project, raise funds, and distribute tokens through onchain launches. Use reputation to recognize
+          the people who have contributed to your community.
         </p>
         <div className="hero-actions">
           <PrimaryCta label="Start a launch" />

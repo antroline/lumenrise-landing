@@ -14,7 +14,7 @@ export function Closing() {
           place="tl"
           mark={<ProjectMark symbol="QSR" size={36} />}
           title="Quasar graduated"
-          sub="Bonding curve · 0.0412 XLM"
+          sub="Base · 0.0412 USDC"
           pill="Graduated"
         />
         <CtaNotice
@@ -33,7 +33,7 @@ export function Closing() {
               <ShieldIcon />
             </span>
           }
-          title="Wallet G2VT…T72H"
+          title="Base wallet 0x7a…4f2b"
           sub="Eligible · 5 of 5 signals"
           pill="Tier 5"
         />

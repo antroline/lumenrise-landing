@@ -3,14 +3,14 @@ export const NAV_LINKS = [
   { label: 'Launch', href: '#launch' },
   { label: 'Reputation', href: '#reputation' },
   { label: 'Developers', href: '#developers' },
-  { label: 'API & SDK', href: 'https://platform.lumenrise.app/developers' },
+  { label: 'Access', href: '#access' },
 ] as const
 
 export const HERO_LINKS = [
   { label: 'Bonding curves', href: '#launch' },
   { label: 'Auctions', href: '#launch' },
   { label: 'Presales', href: '#launch' },
-  { label: 'Reputation SDK', href: '#developers' },
+  { label: 'Launch to liquidity', href: '#lifecycle' },
 ] as const
 
 export const FOOTER_COLUMNS = [

@@ -15,7 +15,7 @@ export function WorkflowSection() {
           title="Your launch."
           follow="Your workflow."
           lede={[
-            'Whether you prefer a visual interface or working directly from your terminal, LumenRise gives you the tools to build and manage token launches.',
+            'Set up your launch in the visual interface or work from the terminal with the same launch terms and participation rules.',
           ]}
         />
         <div className="paths">
@@ -32,8 +32,7 @@ export function WorkflowSection() {
           <WorkflowPath
             title="Launch with CLI"
             tagline="From terminal to launch."
-            text="Bring token launches into your development workflow. Configure, deploy, and interact with launches using command-line tools."
-            cta={<TextCta label="Explore CLI" href="https://platform.lumenrise.app/cli" />}
+            text="A command-line workflow for creating launches, checking progress, and participating through authorized transactions. Built for developers and AI agents."
           >
             <Scene tone="olive" className="path-scene path-scene-cli">
               <CliPreview />

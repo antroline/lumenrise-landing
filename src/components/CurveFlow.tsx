@@ -19,15 +19,15 @@ export function CurveFlow({ open }: { open: boolean }) {
         name="Nova Vault"
         terms={[
           ['Supply', '100,000,000'],
-          ['Start price', '0.0040 XLM'],
-          ['Graduates at', '85,000 XLM'],
+          ['Start price', '0.0040 USDC'],
+          ['Graduates at', '85,000 USDC'],
           ['Purchase limit', open ? 'Open to everyone' : 'By evidence tier'],
         ]}
       />
       <FlowProgressCard
         title="Trading"
         status="Live"
-        figure="32,300 XLM"
+        figure="32,300 USDC"
         of="of 85,000"
         progress={CURVE_PROGRESS}
         foot="38% to graduation · 327 buyers · 2 days left"
@@ -46,7 +46,7 @@ export function CurveFlow({ open }: { open: boolean }) {
           <path d={polylinePath(filled)} className="curve" />
           <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="4.5" className="dot" />
         </svg>
-        <p className="flow-foot">0.0040 → 0.0184 XLM · price follows supply</p>
+        <p className="flow-foot">0.0040 → 0.0184 USDC · price follows supply</p>
       </Float>
     </>
   )

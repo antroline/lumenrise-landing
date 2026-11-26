@@ -17,7 +17,7 @@ export function ReputationSection() {
             title="Reputation is more than a number."
             lede={[
               'A wallet tells you what someone holds. Reputation helps you understand how they participate.',
-              'Bring together onchain activity, developer contributions, ecosystem involvement, and other verifiable signals to build a more complete picture of participation.',
+              'Reputation combines activity on Base and Stellar with linked GitHub contributions and signals from X, including engagement and account history.',
             ]}
             cta={{ label: 'Explore Reputation', href: 'https://platform.lumenrise.app/reputation' }}
             stack

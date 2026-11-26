@@ -1,4 +1,5 @@
 import { PolicyProvider } from './components/PolicyProvider.tsx'
+import { useSmoothScroll } from './hooks/useSmoothScroll.ts'
 import { BeyondSection } from './sections/BeyondSection.tsx'
 import { Closing } from './sections/Closing.tsx'
 import { DevelopersSection } from './sections/DevelopersSection.tsx'
@@ -9,8 +10,13 @@ import { Hero } from './sections/Hero.tsx'
 import { LaunchSection } from './sections/LaunchSection.tsx'
 import { ReputationSection } from './sections/ReputationSection.tsx'
 import { WorkflowSection } from './sections/WorkflowSection.tsx'
+import { LifecycleSection } from './sections/LifecycleSection.tsx'
+import { AccessSection } from './sections/AccessSection.tsx'
+import { FeesSection } from './sections/FeesSection.tsx'
 
 export function App() {
+  useSmoothScroll()
+
   return (
     <PolicyProvider>
       <div className="relative isolate overflow-x-clip">
@@ -18,11 +24,14 @@ export function App() {
         <main>
           <Hero />
           <LaunchSection />
+          <LifecycleSection />
           <ReputationSection />
           <EligibilitySection />
+          <AccessSection />
           <WorkflowSection />
           <DevelopersSection />
           <BeyondSection />
+          <FeesSection />
           <Closing />
         </main>
         <Footer />

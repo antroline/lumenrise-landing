@@ -10,14 +10,19 @@ import { randomBetween } from './random-between.ts'
  */
 export function createSampleWallets(count: number, seed: number): Wallet[] {
   const random = mulberry32(seed)
-  return Array.from({ length: count }, () => {
+  return Array.from({ length: count }, (_, index) => {
+    const network = index % 3 === 0 ? 'Base' : 'Stellar'
     const history = random() < 0.68
     const soroban = random() < (history ? 0.62 : 0.2)
     const ecosystem = random() < (soroban ? 0.6 : 0.32)
     const developer = random() < (soroban ? 0.34 : 0.08)
     const risk = history ? randomBetween(random, 4, 48) : randomBetween(random, 30, 92)
-    const address = 'G' + Array.from({ length: 55 }, () => BASE32[Math.floor(random() * 32)]).join('')
+    const alphabet = network === 'Base' ? '0123456789abcdef' : BASE32
+    const prefix = network === 'Base' ? '0x' : 'G'
+    const length = network === 'Base' ? 40 : 55
+    const address = prefix + Array.from({ length }, () => alphabet[Math.floor(random() * alphabet.length)]).join('')
     return {
+      network,
       address,
       signals: { history, soroban, ecosystem, developer, sybil: risk <= 35 },
       evidence: {

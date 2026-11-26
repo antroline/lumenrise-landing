@@ -3,22 +3,22 @@ import type { DevTool } from '../types/dev-tool.ts'
 export const DEV_TOOLS: readonly DevTool[] = [
   {
     id: 'sdk',
-    title: 'Reputation SDK',
-    text: 'Access reputation capabilities and eligibility checks directly from your application with a JavaScript/TypeScript SDK.',
+    title: 'TypeScript SDK',
+    text: 'Check wallet reputation and eligibility, then participate in launches programmatically through authorized transactions.',
     file: 'app.ts',
     tone: 'cream',
   },
   {
     id: 'soroban',
     title: 'Onchain Verification',
-    text: 'Bring eligibility verification onchain, allowing Soroban contracts on Stellar and smart contracts on Base to use reputation-based conditions.',
+    text: 'Reuse reputation and participation rules through a public contract, so other Stellar applications can enforce the same conditions.',
     file: 'contract.rs',
     tone: 'olive',
   },
   {
     id: 'api',
     title: 'Developer API',
-    text: 'Retrieve reputation data, evaluate eligibility, and connect external applications to the reputation infrastructure.',
+    text: 'Query address reputation and evaluate participation requirements without building your own scoring infrastructure.',
     file: 'Terminal',
     tone: 'orange',
   },

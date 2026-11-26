@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { SOCIAL_ICONS } from '../data/social-icons.ts'
 import { cssVars } from '../lib/css-vars.ts'
-import { shortAddress } from '../lib/short-address.ts'
+import { initials } from '../lib/initials.ts'
 import type { FeaturedLaunch } from '../types/launch.ts'
 import { Avatar } from './Avatar.tsx'
 import { UpRightIcon } from './icons/UpRightIcon.tsx'
@@ -10,6 +10,9 @@ import { ProjectMark } from './ProjectMark.tsx'
 /** `index` staggers the entrance and picks the creator's avatar tone. */
 export function LaunchCard({ launch, index }: { launch: FeaturedLaunch; index: number }) {
   const [failedLogo, setFailedLogo] = useState<string>()
+  const [failedAvatar, setFailedAvatar] = useState<string>()
+  const creatorName = launch.creatorName || 'Project creator'
+  const description = launch.description.split(/(?<=[.!?])\s+/).slice(0, 2).join(' ')
   return (
     <a
       className="lcard"
@@ -34,7 +37,7 @@ export function LaunchCard({ launch, index }: { launch: FeaturedLaunch; index: n
           {launch.statusLabel}
         </span>
       </span>
-      <span className="lcard-blurb">{launch.description || `${launch.symbol} · Bonding Curve`}</span>
+      <span className="lcard-blurb">{description || `${launch.symbol} · Bonding Curve`}</span>
       <span className="lcard-figure">
         <span className="lcard-label">{launch.metric[1]}</span>
         <span className="lcard-value">{launch.metric[0]}</span>
@@ -48,9 +51,18 @@ export function LaunchCard({ launch, index }: { launch: FeaturedLaunch; index: n
         </span>
       </span>
       <span className="lcard-foot">
-        <Avatar text={launch.owner.slice(0, 2)} tone={index} />
+        {launch.creatorAvatar && failedAvatar !== launch.creatorAvatar ? (
+          <img
+            className="avatar lcard-creator-avatar"
+            src={launch.creatorAvatar}
+            width={30}
+            height={30}
+            alt=""
+            onError={() => setFailedAvatar(launch.creatorAvatar)}
+          />
+        ) : <Avatar text={launch.creatorName ? initials(launch.creatorName).slice(0, 2) : '?'} tone={index} />}
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[0.8125rem] font-medium" title={launch.owner}>{shortAddress(launch.owner)}</span>
+          <span className="block truncate text-[0.8125rem] font-medium" title={creatorName}>{creatorName}</span>
           <span className="block truncate text-[0.75rem] text-muted-foreground">
             Creator · {launch.symbol} · Bonding Curve
           </span>

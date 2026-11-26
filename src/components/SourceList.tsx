@@ -2,6 +2,7 @@ import { usePolicy } from '../hooks/usePolicy.ts'
 import { cssVars } from '../lib/css-vars.ts'
 import { linkedSources } from '../lib/linked-sources.ts'
 import { GithubIcon } from './icons/GithubIcon.tsx'
+import { BaseLogo } from './icons/BaseLogo.tsx'
 import { StellarIcon } from './icons/StellarIcon.tsx'
 import { XIcon } from './icons/XIcon.tsx'
 import { SourceRow } from './SourceRow.tsx'
@@ -12,7 +13,11 @@ export function SourceList() {
   const linked = linkedSources(wallets[active])
   return (
     <ul className="float w-sources" style={cssVars({ '--f': 0 })}>
-      <SourceRow mark={<StellarIcon />} name="Stellar" detail="Account history, Soroban activity" on={linked.stellar} />
+      {linked.base ? (
+        <SourceRow mark={<BaseLogo />} name="Base" detail="Account history, contract activity" on />
+      ) : (
+        <SourceRow mark={<StellarIcon />} name="Stellar" detail="Account history, Soroban activity" on={linked.stellar} />
+      )}
       <SourceRow mark={<GithubIcon />} name="GitHub" detail="Repositories and contributions" on={linked.github} />
       <SourceRow
         mark={<span className="text-[0.6875rem] font-semibold">GL</span>}
