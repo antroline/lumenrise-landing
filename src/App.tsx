@@ -1,4 +1,5 @@
 import { PolicyProvider } from './components/PolicyProvider.tsx'
+import { useSmoothScroll } from './hooks/useSmoothScroll.ts'
 import { BeyondSection } from './sections/BeyondSection.tsx'
 import { Closing } from './sections/Closing.tsx'
 import { DevelopersSection } from './sections/DevelopersSection.tsx'
@@ -11,6 +12,8 @@ import { ReputationSection } from './sections/ReputationSection.tsx'
 import { WorkflowSection } from './sections/WorkflowSection.tsx'
 
 export function App() {
+  useSmoothScroll()
+
   return (
     <PolicyProvider>
       <div className="relative isolate overflow-x-clip">

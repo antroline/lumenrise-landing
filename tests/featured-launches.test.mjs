@@ -80,6 +80,14 @@ test('requests three latest mainnet projects without credentials and propagates 
   t.mock.method(globalThis, 'fetch', async (url, options) => {
     const request = new URL(url)
     assert.equal(request.origin, 'https://api.lumenrise.app')
+    assert.equal(options.credentials, 'omit')
+    if (request.pathname !== '/v1/launches') {
+      assert.equal(request.pathname, '/v1/launches/evo-genesis')
+      assert.equal(request.searchParams.get('network'), 'public')
+      return new Response(JSON.stringify({ status: 'success', result: {
+        ...launch(), team: [{ kind: 'owner', address: 'GCREATOR', name: 'Harry', avatarUrl: 'https://cdn.lumenrise.app/harry.webp' }],
+      } }), { status: 200 })
+    }
     assert.equal(request.pathname, '/v1/launches')
     assert.equal(request.searchParams.get('network'), 'public')
     assert.equal(request.searchParams.get('limit'), '3')
@@ -88,7 +96,10 @@ test('requests three latest mainnet projects without credentials and propagates 
     assert.equal(options.credentials, 'omit')
     return new Response(JSON.stringify(envelope([launch()])), { status: 200 })
   })
-  assert.equal((await fetchFeaturedLaunches(new AbortController().signal)).length, 1)
+  const cards = await fetchFeaturedLaunches(new AbortController().signal)
+  assert.equal(cards.length, 1)
+  assert.equal(cards[0].creatorName, 'Harry')
+  assert.equal(cards[0].creatorAvatar, 'https://cdn.lumenrise.app/harry.webp')
   globalThis.fetch.mock.mockImplementation(async () => new Response('', { status: 503 }))
   await assert.rejects(fetchFeaturedLaunches(new AbortController().signal), /503/)
   globalThis.fetch.mock.mockImplementation(async (_url, options) => {
@@ -97,4 +108,26 @@ test('requests three latest mainnet projects without credentials and propagates 
   const controller = new AbortController()
   controller.abort()
   await assert.rejects(fetchFeaturedLaunches(controller.signal), { name: 'AbortError' })
+})
+
+test('keeps projects visible when profiles are unavailable and never assigns another member as creator', async (t) => {
+  let detail = { ...launch(), team: [
+    { kind: 'registered', address: 'GCREATOR', name: 'Team member' },
+    { kind: 'owner', address: 'OTHER', name: 'Wrong owner' },
+  ] }
+  let detailFails = false
+  t.mock.method(globalThis, 'fetch', async (url) => {
+    if (new URL(url).pathname === '/v1/launches') return new Response(JSON.stringify(envelope([launch()])))
+    return detailFails ? new Response('', { status: 503 }) : new Response(JSON.stringify({ status: 'success', result: detail }))
+  })
+  let [card] = await fetchFeaturedLaunches(new AbortController().signal)
+  assert.equal(card.creatorName, undefined)
+  detail = { ...launch(), team: [{ kind: 'owner', address: 'GCREATOR', name: ' Harry ', avatarUrl: null }] }
+  ;[card] = await fetchFeaturedLaunches(new AbortController().signal)
+  assert.equal(card.creatorName, 'Harry')
+  assert.equal(card.creatorAvatar, undefined)
+  detailFails = true
+  ;[card] = await fetchFeaturedLaunches(new AbortController().signal)
+  assert.equal(card.name, 'Evo Genesis')
+  assert.equal(card.creatorName, undefined)
 })

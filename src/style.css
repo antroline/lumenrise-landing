@@ -943,6 +943,10 @@
   background: var(--chip);
 }
 
+.lcard-creator-avatar {
+  object-fit: cover;
+}
+
 .lcard-skeleton,
 .launches-message {
   min-height: 19rem;

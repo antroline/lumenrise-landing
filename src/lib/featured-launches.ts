@@ -81,6 +81,7 @@ function decodeLaunch(value: unknown): FeaturedLaunch | null {
     : ''
   return {
     id: requiredText(item.contractId),
+    slug: requiredText(item.slug),
     href: `https://platform.lumenrise.app/projects/${encodeURIComponent(requiredText(item.slug))}?network=stellar-mainnet`,
     name: requiredText(metadata.name),
     symbol: requiredText(metadata.symbol),
@@ -105,13 +106,47 @@ export function decodeFeaturedLaunches(value: unknown): FeaturedLaunch[] {
   return [...new Map(launches.map((launch) => [launch.id, launch])).values()].slice(0, 3)
 }
 
-export async function fetchFeaturedLaunches(signal: AbortSignal): Promise<FeaturedLaunch[]> {
+async function requestLaunches(path: string, signal: AbortSignal): Promise<unknown> {
   const base = apiBase.endsWith('/v1') ? apiBase : `${apiBase}/v1`
-  const query = new URLSearchParams({ network: 'public', page: '1', limit: '3', sort: 'newest', direction: 'desc' })
-  const response = await fetch(`${base}/launches?${query}`, {
+  const response = await fetch(`${base}${path}`, {
     signal: AbortSignal.any([signal, AbortSignal.timeout(12_000)]),
     credentials: 'omit',
   })
   if (!response.ok) throw new Error(`Launch request failed (${response.status})`)
-  return decodeFeaturedLaunches(await response.json())
+  return response.json()
+}
+
+async function withCreatorProfile(launch: FeaturedLaunch, signal: AbortSignal): Promise<FeaturedLaunch> {
+  try {
+    // The public detail response includes the owner's profile; the list omits it.
+    const envelope = record(await requestLaunches(`/launches/${encodeURIComponent(launch.slug)}?network=public`, signal))
+    if (envelope.status !== 'success') throw new Error('Profile request failed')
+    const detail = record(envelope.result)
+    if (detail.network !== 'public' || detail.contractId !== launch.id || detail.owner !== launch.owner) {
+      throw new Error('Unexpected project profile')
+    }
+    if (!Array.isArray(detail.team)) return launch
+    const owner = detail.team.find((member: unknown) => {
+      if (!member || typeof member !== 'object' || Array.isArray(member)) return false
+      const profile = member as Record<string, unknown>
+      return profile.kind === 'owner' && profile.address === launch.owner
+    })
+    if (!owner) return launch
+    const profile = record(owner)
+    return {
+      ...launch,
+      creatorName: typeof profile.name === 'string' ? profile.name.trim() || undefined : undefined,
+      creatorAvatar: httpUrl(profile.avatarUrl),
+    }
+  } catch (error) {
+    if (signal.aborted) throw error
+    // A missing or unavailable optional profile must not hide the project itself.
+    return launch
+  }
+}
+
+export async function fetchFeaturedLaunches(signal: AbortSignal): Promise<FeaturedLaunch[]> {
+  const query = new URLSearchParams({ network: 'public', page: '1', limit: '3', sort: 'newest', direction: 'desc' })
+  const launches = decodeFeaturedLaunches(await requestLaunches(`/launches?${query}`, signal))
+  return Promise.all(launches.map((launch) => withCreatorProfile(launch, signal)))
 }
