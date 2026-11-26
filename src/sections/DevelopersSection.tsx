@@ -12,8 +12,7 @@ export function DevelopersSection() {
           eyebrow="Built for Developers"
           title="Build with reputation."
           lede={[
-            'Reputation shouldn’t be limited to a single platform.',
-            'Integrate reputation signals, custom eligibility policies, and verification into your own applications using developer-friendly infrastructure.',
+            'Bring reputation checks and reusable eligibility rules into your own application. Give developers and AI agents ways to participate through authorized transactions.',
           ]}
           cta={{ label: 'Developer Resources', href: 'https://platform.lumenrise.app/developers' }}
         />

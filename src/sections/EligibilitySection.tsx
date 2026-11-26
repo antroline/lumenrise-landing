@@ -11,7 +11,7 @@ export function EligibilitySection() {
           title="Better participation starts with better eligibility."
           lede={[
             'Not every allocation needs to follow the same rules.',
-            'Define who can participate in your launch using reputation signals, wallet activity, contribution history, and custom eligibility requirements.',
+            'Keep entry open or set minimum reputation requirements. A reusable policy can combine onchain activity with GitHub contributions to reach the community you want.',
           ]}
           cta={{ label: 'Explore Eligibility', href: 'https://platform.lumenrise.app/reputation' }}
         />
