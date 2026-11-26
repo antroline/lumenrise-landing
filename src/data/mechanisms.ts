@@ -6,7 +6,7 @@ export const MECHANISMS: readonly Mechanism[] = [
     label: 'Bonding curve',
     tagline: 'Launch with dynamic pricing.',
     summary:
-      'Let tokens trade through a programmable pricing curve, where price responds to supply and demand.',
+      'Buy and sell along a programmable pricing curve until graduation. Prices adjust automatically as tokens move in and out of the curve.',
     axis: 'Purchase limit',
     allocation: 'purchase_limit_by_tier',
     createStep: 'Create bonding curve',
@@ -18,7 +18,7 @@ export const MECHANISMS: readonly Mechanism[] = [
     label: 'Auction',
     tagline: 'Let the market find the price.',
     summary:
-      'Bring participants together in a structured bidding process designed for transparent price discovery and token allocation.',
+      'Participants name their price. Higher bids fill first, reputation breaks ties, and funds not used for an allocation go back to the bidder.',
     axis: 'Bid access',
     allocation: 'equal_bid_access',
     createStep: 'Create auction',
@@ -30,7 +30,7 @@ export const MECHANISMS: readonly Mechanism[] = [
     label: 'Presale',
     tagline: 'Build momentum before launch.',
     summary:
-      'Set your fundraising terms, define participation rules, and distribute tokens through a structured presale.',
+      'A fixed price gives everyone the same terms. After the sale closes, reputation gives contributors priority if demand exceeds supply, and unused funds are refundable.',
     axis: 'Allocation cap',
     allocation: 'cap_by_evidence_tier',
     createStep: 'Create presale',

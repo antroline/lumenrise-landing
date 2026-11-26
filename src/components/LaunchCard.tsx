@@ -12,6 +12,7 @@ export function LaunchCard({ launch, index }: { launch: FeaturedLaunch; index: n
   const [failedLogo, setFailedLogo] = useState<string>()
   const [failedAvatar, setFailedAvatar] = useState<string>()
   const creatorName = launch.creatorName || 'Project creator'
+  const description = launch.description.split(/(?<=[.!?])\s+/).slice(0, 2).join(' ')
   return (
     <a
       className="lcard"
@@ -36,7 +37,7 @@ export function LaunchCard({ launch, index }: { launch: FeaturedLaunch; index: n
           {launch.statusLabel}
         </span>
       </span>
-      <span className="lcard-blurb">{launch.description || `${launch.symbol} · Bonding Curve`}</span>
+      <span className="lcard-blurb">{description || `${launch.symbol} · Bonding Curve`}</span>
       <span className="lcard-figure">
         <span className="lcard-label">{launch.metric[1]}</span>
         <span className="lcard-value">{launch.metric[0]}</span>

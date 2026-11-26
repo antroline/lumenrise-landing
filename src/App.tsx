@@ -10,6 +10,9 @@ import { Hero } from './sections/Hero.tsx'
 import { LaunchSection } from './sections/LaunchSection.tsx'
 import { ReputationSection } from './sections/ReputationSection.tsx'
 import { WorkflowSection } from './sections/WorkflowSection.tsx'
+import { LifecycleSection } from './sections/LifecycleSection.tsx'
+import { AccessSection } from './sections/AccessSection.tsx'
+import { FeesSection } from './sections/FeesSection.tsx'
 
 export function App() {
   useSmoothScroll()
@@ -21,11 +24,14 @@ export function App() {
         <main>
           <Hero />
           <LaunchSection />
+          <LifecycleSection />
           <ReputationSection />
           <EligibilitySection />
+          <AccessSection />
           <WorkflowSection />
           <DevelopersSection />
           <BeyondSection />
+          <FeesSection />
           <Closing />
         </main>
         <Footer />

@@ -44,9 +44,22 @@ export function LaunchSection() {
                 className="launch-scene"
               >
                 <LaunchFlow mechanism={mechanism} />
+                <p className="launch-example-note">
+                  {mechanism.id === 'curve' ? 'Base bonding curve example' : `${mechanism.label} example on Stellar`}
+                </p>
               </Scene>
             </article>
           ))}
+        </div>
+        <div className="pair-assets">
+          <div>
+            <h3>Price your launch in USDC.</h3>
+            <p>Bonding curves on Base and Stellar use USDC as the trading pair. XLM and EURC are part of the Stellar expansion.</p>
+          </div>
+          <ul aria-label="Networks for USDC bonding curves">
+            <li><strong>Base</strong><span>USDC</span></li>
+            <li><strong>Stellar</strong><span>USDC</span></li>
+          </ul>
         </div>
       </div>
     </section>
